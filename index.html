@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f5b4f">
+  <meta name="description" content="VinTracker Aventura: juegos interactivos y educación sobre Chagas.">
+  <title>VinTracker Aventura</title>
+  <link rel="icon" type="image/png" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <button id="homeBtn" class="brand" type="button" aria-label="Ir al inicio">
+        <img src="assets/icon-192.png" alt="Logo VinTracker">
+        <span><strong>VinTracker</strong><small>Aventura</small></span>
+      </button>
+      <div class="top-progress" aria-label="Progreso">
+        <span class="pill">⭐ <b id="scoreTop">0</b></span>
+        <span class="pill">🏅 <b id="badgeCount">0</b></span>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="screen active" aria-labelledby="homeTitle">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <span class="kicker">JUGÁ · APRENDÉ · PREVENÍ</span>
+            <h1 id="homeTitle">Convertite en un <em>VinTracker</em></h1>
+            <p>Superá misiones, descubrí cómo actúa la vinchuca y aprendé a prevenir el Chagas mientras ganás puntos e insignias.</p>
+            <div class="hero-actions">
+              <button id="continueBtn" class="btn primary" type="button">Empezar aventura →</button>
+              <button id="libraryBtn" class="btn secondary" type="button">Abrir biblioteca</button>
+            </div>
+          </div>
+          <div class="guide-card" aria-label="Vinchuca guía">
+            <div class="bug-wrap">
+              <svg class="guide-bug" viewBox="0 0 180 220" role="img" aria-label="Vinchuca ilustrada">
+                <defs>
+                  <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#1b2833"/>
+                    <stop offset="1" stop-color="#090f14"/>
+                  </linearGradient>
+                </defs>
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M73 52 50 25M107 52l23-27M68 73 31-44M112 73l-31-44" stroke="#26333c" stroke-width="7"/>
+                  <path d="M62 95 28 75M58 115 22 113M61 137 30 158M118 95l34-20M122 115l36-2M119 137l31 21" stroke="#202b33" stroke-width="9"/>
+                  <ellipse cx="90" cy="62" rx="23" ry="20" fill="#151e25"/>
+                  <path d="M58 87 Q90 65 122 87 L115 163 Q90 205 65 163Z" fill="url(#bodyG)" stroke="#27353e" stroke-width="4"/>
+                  <path d="M65 94 82 104 70 122 84 134 70 150 84 166" fill="none" stroke="#ed6a36" stroke-width="8"/>
+                  <path d="M115 94 98 104 110 122 96 134 110 150 96 166" fill="none" stroke="#ed6a36" stroke-width="8"/>
+                  <path d="M90 89V178" stroke="#87939b" stroke-width="3"/>
+                  <circle cx="81" cy="59" r="4" fill="#eaa23e"/><circle cx="99" cy="59" r="4" fill="#eaa23e"/>
+                </g>
+              </svg>
+            </div>
+            <div class="speech"><strong>¡Hola!</strong><span>Yo te voy a acompañar. Cada misión desbloquea información nueva.</span></div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-head"><div><span>Tu progreso</span><strong id="progressText">0 de 8 misiones</strong></div><b id="percentText">0%</b></div>
+          <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        </div>
+
+        <div class="section-head"><span class="kicker">MAPA DE MISIONES</span><h2>Elegí tu desafío</h2></div>
+        <div id="missionGrid" class="mission-grid"></div>
+
+        <div class="daily-card">
+          <div><span class="daily-icon">🔥</span><div><strong>Desafío relámpago</strong><small>Una pregunta extra para sumar 50 puntos.</small></div></div>
+          <button id="dailyBtn" class="btn compact" type="button">Jugar</button>
+        </div>
+      </section>
+
+      <section id="game" class="screen" aria-labelledby="gameTitle">
+        <button class="back-btn" data-go="home" type="button">← Volver a misiones</button>
+        <div id="gameContainer"></div>
+      </section>
+
+      <section id="library" class="screen" aria-labelledby="libraryTitle">
+        <button class="back-btn" data-go="home" type="button">← Volver</button>
+        <div class="library-hero">
+          <span class="kicker">BIBLIOTECA VINTRACKER</span>
+          <h2 id="libraryTitle">Todo lo que vas descubriendo</h2>
+          <p>La información se desbloquea al completar misiones. También podés explorarla por tema.</p>
+        </div>
+        <div class="topic-tabs" id="topicTabs"></div>
+        <div id="libraryGrid" class="library-grid"></div>
+      </section>
+
+      <section id="badges" class="screen" aria-labelledby="badgesTitle">
+        <button class="back-btn" data-go="home" type="button">← Volver</button>
+        <div class="library-hero">
+          <span class="kicker">TUS LOGROS</span>
+          <h2 id="badgesTitle">Insignias VinTracker</h2>
+          <p>Completá misiones para desbloquear reconocimientos.</p>
+        </div>
+        <div id="badgeGrid" class="badge-grid"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button data-nav="home" class="active" type="button"><span>⌂</span><small>Inicio</small></button>
+      <button data-nav="library" type="button"><span>▤</span><small>Biblioteca</small></button>
+      <button data-nav="badges" type="button"><span>★</span><small>Logros</small></button>
+      <button id="resetBtn" type="button"><span>↻</span><small>Reiniciar</small></button>
+    </nav>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
