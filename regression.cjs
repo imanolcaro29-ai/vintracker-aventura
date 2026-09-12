@@ -10,6 +10,33 @@ const read = (f) => fs.readFileSync(path.join(root, f), "utf8");
 const L = require("../learning.js");
 const KEY = "vintracker_aventura_v2";
 
+test("Embedded scenery retains the complete original image bytes", () => {
+  const dom = new JSDOM(read("index.html"));
+  const d = dom.window.document;
+  const images = JSON.parse(d.querySelector("#vt-image-data").textContent);
+  images["assets/comunidad.webp"] = d.querySelector(".world-image").getAttribute("src");
+  assert.equal(Object.keys(images).length, 4);
+  for (const [name, data] of Object.entries(images)) {
+    assert.match(data, /^data:image\/(webp|jpeg);base64,/);
+    assert.deepEqual(Buffer.from(data.split(",")[1], "base64"), fs.readFileSync(path.join(root, name)));
+  }
+  dom.window.close();
+});
+
+test("All four scenes load their pictures without external assets folder requests", () => {
+  const a = app();
+  for (const mission of ["house", "night", "lab", "report"]) {
+    a.click(`[data-mission="${mission}"]`);
+    if (mission === "lab") a.click('[data-lab="cycle"]');
+    const images = [...a.d.querySelectorAll("#missionBody img,.world-image")];
+    assert.ok(images.length >= 2);
+    for (const image of images) assert.match(image.getAttribute("src"), /^data:image\//);
+    a.click(".back-btn");
+  }
+  assert.deepEqual(a.requests, []);
+  a.close();
+});
+
 function app(seed = {}, options = {}) {
   const errors = [],
     requests = [],
@@ -617,13 +644,13 @@ test("Worker install precaches every required file and only then activates", asy
   await s.event("install");
   assert.equal(s.skipped(), true);
   const cache = [...s.entries.values()][0];
-  assert.equal(cache.size, 14);
+  assert.equal(cache.size, 10);
   for (const f of [
     "index.html",
-    "app.js?v=200",
-    "learning.js?v=200",
-    "assets/comunidad.webp",
-    "assets/ciclo-vinchuca-oficial.jpg",
+    "app.js?v=201",
+    "learning.js?v=201",
+    "icon-192.png",
+    "manifest.json",
   ])
     assert.ok([...cache.keys()].some((k) => k.endsWith("/" + f)));
   const fail = workerEnvironment({ failInstall: true });
@@ -645,10 +672,10 @@ test("Worker upgrade removes old Aventura caches while preserving unrelated cach
 test("Offline worker serves cached scripts/assets and navigation; never HTML for missing images", async () => {
   const s = workerEnvironment({ offline: true });
   await s.event("install");
-  const script = await s.request("app.js?v=200");
+  const script = await s.request("app.js?v=201");
   assert.match(await script.text(), /cached:app.js/);
-  const image = await s.request("assets/comunidad.webp");
-  assert.match(await image.text(), /cached:assets/);
+  const image = await s.request("icon-192.png");
+  assert.match(await image.text(), /cached:icon-192/);
   const page = await s.request("some-route", "GET", "navigate");
   assert.equal(await page.text(), "cached:index.html");
   const missing = await s.request("missing.webp");
@@ -685,7 +712,7 @@ test("HTML, generated activities, manifest and root icons have valid local resou
   const manifest = JSON.parse(read("manifest.json"));
   for (const i of manifest.icons) references.add(i.src);
   for (const ref of references)
-    assert.ok(
+    if (!ref.startsWith("data:")) assert.ok(
       fs.existsSync(path.join(root, ref.split("?")[0])),
       `Missing ${ref}`,
     );

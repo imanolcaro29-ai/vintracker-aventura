@@ -1,4 +1,4 @@
-# VinTracker Aventura 2.0 — Expedición Chaco
+# VinTracker Aventura 2.0.1 — Expedición Chaco
 
 Una aventura educativa para aprender sobre Chagas explorando, transformando escenas y observando consecuencias. La nueva experiencia tiene cuatro misiones abiertas desde el inicio.
 
@@ -11,11 +11,15 @@ Una aventura educativa para aprender sobre Chagas explorando, transformando esce
 
 La bitácora reúne los sellos y seis recursos de consulta. Está disponible desde el principio. Las misiones no contienen preguntas de opción múltiple ni penalizaciones por equivocarse.
 
+## Corrección de imágenes — versión 2.0.1
+
+Las imágenes del mapa, la casa y el laboratorio están incorporadas dentro de `index.html`. Así se muestran aunque la carpeta `assets` no esté en el despliegue. La caché nueva descarga 10 recursos y no necesita solicitar esas imágenes por separado. Se mantiene el progreso de Aventura 2.0.
+
 ## Publicar en el proyecto existente
 
 1. Descomprimí el ZIP.
 2. Abrí el repositorio de GitHub conectado a **vintracker-aventura.vercel.app**.
-3. Subí el **contenido descomprimido** a la raíz del proyecto, reemplazando los archivos existentes. `index.html` debe quedar en la raíz, junto a `app.js`, `learning.js`, `styles.css`, `sw.js`, `manifest.json` y `vercel.json`. Conservá la carpeta `assets` completa y los cuatro iconos de la raíz.
+3. Subí el **contenido descomprimido** a la raíz del proyecto, reemplazando los archivos existentes. `index.html` debe quedar en la raíz, junto a `app.js`, `learning.js`, `styles.css`, `sw.js`, `manifest.json` y `vercel.json`. Conservá los cuatro iconos de la raíz. Las imágenes de las escenas ahora están incorporadas en `index.html`; la carpeta `assets` conserva los originales para edición.
 4. Guardá los cambios en la rama que Vercel usa para producción. Con la integración de Git activa, esto genera el despliegue.
 5. Esperá que termine y abrí la dirección de Aventura. Si aparece la pantalla anterior, cerrá todas las pestañas de Aventura y la app instalada, reabrí y recargá para recibir la actualización.
 
@@ -49,7 +53,7 @@ Abrí `http://localhost:4173`. La descarga offline requiere HTTPS o localhost. A
 
 ## Verificación de esta entrega
 
-**22 simulacros automáticos aprobados, 0 fallidos.** Cubren interacciones del DOM, progreso, recorridos completos, interrupciones y lógica de caché. Ver `PRUEBAS.md` para el alcance y los pasos pendientes.
+**24 simulacros automáticos aprobados, 0 fallidos.** Cubren interacciones del DOM, progreso, recorridos completos, interrupciones y lógica de caché. Ver `PRUEBAS.md` para el alcance y los pasos pendientes.
 
 La comprobación visual en un navegador real y el modo avión en teléfonos no pudieron ejecutarse aquí: la política del navegador bloqueó el acceso a los archivos locales. Las simulaciones no certifican compatibilidad con todos los dispositivos.
 

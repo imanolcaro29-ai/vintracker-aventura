@@ -1,10 +1,10 @@
-# Verificación — Aventura 2.0
+# Verificación — Aventura 2.0.1
 
 Fecha: 12 de septiembre de 2026.
 
 ## Resultado ejecutado
 
-22 pruebas aprobadas, 0 fallidas, 0 omitidas. Se usa el código real de `app.js`, `learning.js`, `index.html` y `sw.js` dentro de simuladores locales de DOM y service worker. El resultado reproducible queda en `tests/resultado.txt`.
+24 pruebas aprobadas, 0 fallidas, 0 omitidas. Se usa el código real de `app.js`, `learning.js`, `index.html` y `sw.js` dentro de simuladores locales de DOM y service worker. El resultado reproducible queda en `tests/resultado.txt`.
 
 | Grupo | Escenarios verificados |
 | --- | --- |
@@ -18,7 +18,7 @@ Fecha: 12 de septiembre de 2026.
 | Semántica | Identificadores únicos, botones con nombre, imágenes con atributo alternativo, entradas etiquetadas y dimensiones explícitas de iconos. |
 | Audio y movimiento | Preferencias de sonido y movimiento guardadas; sin reproducción automática al abrir. Mensaje alternativo cuando la lectura de voz no existe. |
 | Descarga offline | El estado espera la activación y muestra el fallo si la instalación no se completa. |
-| Caché | Inclusión de los 14 recursos requeridos, instalación fallida sin activación, limpieza exclusiva de cachés Aventura, respuestas offline y navegación, solicitudes externas y POST sin interceptar. |
+| Caché | Inclusión de los 10 recursos requeridos, instalación fallida sin activación, limpieza exclusiva de cachés Aventura, respuestas offline y navegación, solicitudes externas y POST sin interceptar. |
 
 El test de arrastrar dispara los eventos del DOM; no reproduce el gesto físico de una pantalla táctil. Los diálogos, el reloj, la caché y el dispositivo de audio se simulan. El test semántico no equivale a una auditoría de accesibilidad completa.
 
@@ -38,3 +38,7 @@ Después del despliegue:
 8. Probá la instalación y la lectura de voz en el dispositivo de destino. La voz depende del sistema; el texto debe permanecer disponible.
 
 No se midieron mejoras de aprendizaje con estudiantes ni se realizó una evaluación clínica. La entrega implementa la nueva experiencia y verifica su lógica; la evaluación educativa en aula es una etapa distinta.
+
+## Regresión de imágenes 2.0.1
+
+Se verificó que las cuatro imágenes incrustadas conservan exactamente los bytes originales y que todas las escenas usan imágenes incorporadas, sin solicitar la carpeta `assets`. La caché ya no requiere archivos de esa carpeta. La comprobación se realizó mediante simulación DOM e integridad binaria; no se afirma un despliegue público ni una nueva inspección visual en navegador.

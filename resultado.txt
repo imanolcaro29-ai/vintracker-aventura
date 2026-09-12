@@ -1,33 +1,33 @@
-VinTracker Aventura 2.0 — simulación automática
-2026-09-12 · Node.js v24.19.0 · jsdom 26.1.0
-
-✔ Saved state is sanitized, deduplicated and detached from its input (1.788668ms)
-✔ Every seal requires its own finished activity and can be earned only once (0.192193ms)
-✔ Map, notebook and instructions are accessible before completing a mission (127.650685ms)
-✔ House: wrong tool, repeated action, reload, remaining repairs and comparison (122.093561ms)
-✔ House: the drag/drop event path applies the selected tool (29.549725ms)
-✔ Night: focus moves the light, the light switch works and clues are deduplicated (41.783175ms)
-✔ Lab: playback, pause, restart, scrubbing and leaving dispose the timer (55.564819ms)
-✔ Lab: partial insect-cycle work survives reload and four experiments enable the seal (107.277979ms)
-✔ Report: offline save, canceled connection, completion and no real data access (47.695309ms)
-✔ Report: reloading a pending practice and leaving during send cannot auto-complete it (92.064773ms)
-✔ A full expedition, four seals and notebook survive a reload (304.540526ms)
-✔ Reset requires confirmation, preserves preferences and leaves v1 data intact (110.917391ms)
-✔ Storage failure reports the problem while the activity remains usable (67.139986ms)
-✔ Broken saved JSON recovers and unavailable speech has a readable fallback (27.418735ms)
-✔ Sounds remain opt-in and the preference survives reload (37.371696ms)
-✔ DOM semantics: unique IDs, named controls and labeled images in every activity (87.757516ms)
-✔ Offline label waits for worker activation and rejects a failed download (40.718381ms)
-✔ Worker install precaches every required file and only then activates (10.697553ms)
-✔ Worker upgrade removes old Aventura caches while preserving unrelated caches (1.426336ms)
-✔ Offline worker serves cached scripts/assets and navigation; never HTML for missing images (4.2477ms)
-✔ Worker ignores foreign origins and mutations, and uses the network for uncached GETs (1.733447ms)
-✔ HTML, generated activities, manifest and root icons have valid local resources (48.921761ms)
-ℹ tests 22
+VinTracker Aventura 2.0.1 — corrección de imágenes
+✔ Embedded scenery retains the complete original image bytes (213.410294ms)
+✔ All four scenes load their pictures without external assets folder requests (518.288634ms)
+✔ Saved state is sanitized, deduplicated and detached from its input (0.608595ms)
+✔ Every seal requires its own finished activity and can be earned only once (0.207315ms)
+✔ Map, notebook and instructions are accessible before completing a mission (284.531823ms)
+✔ House: wrong tool, repeated action, reload, remaining repairs and comparison (782.579939ms)
+✔ House: the drag/drop event path applies the selected tool (497.9984ms)
+✔ Night: focus moves the light, the light switch works and clues are deduplicated (181.334599ms)
+✔ Lab: playback, pause, restart, scrubbing and leaving dispose the timer (158.18378ms)
+✔ Lab: partial insect-cycle work survives reload and four experiments enable the seal (422.366299ms)
+✔ Report: offline save, canceled connection, completion and no real data access (345.66137ms)
+✔ Report: reloading a pending practice and leaving during send cannot auto-complete it (965.521028ms)
+✔ A full expedition, four seals and notebook survive a reload (1000.177352ms)
+✔ Reset requires confirmation, preserves preferences and leaves v1 data intact (358.148794ms)
+✔ Storage failure reports the problem while the activity remains usable (378.322313ms)
+✔ Broken saved JSON recovers and unavailable speech has a readable fallback (219.105418ms)
+✔ Sounds remain opt-in and the preference survives reload (242.655958ms)
+✔ DOM semantics: unique IDs, named controls and labeled images in every activity (280.763306ms)
+✔ Offline label waits for worker activation and rejects a failed download (405.362413ms)
+✔ Worker install precaches every required file and only then activates (8.388814ms)
+✔ Worker upgrade removes old Aventura caches while preserving unrelated caches (1.769692ms)
+✔ Offline worker serves cached scripts/assets and navigation; never HTML for missing images (2.859815ms)
+✔ Worker ignores foreign origins and mutations, and uses the network for uncached GETs (1.590378ms)
+✔ HTML, generated activities, manifest and root icons have valid local resources (599.045068ms)
+ℹ tests 24
 ℹ suites 0
-ℹ pass 22
+ℹ pass 24
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1668.661466
+ℹ duration_ms 8271.702105

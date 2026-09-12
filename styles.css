@@ -2141,3 +2141,6 @@ input[type="range"] {
     display: none;
   }
 }
+
+/* Legible numbers on the pastel map markers. */
+.pin-num { color: var(--ink); }

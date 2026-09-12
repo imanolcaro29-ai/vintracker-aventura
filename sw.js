@@ -1,20 +1,16 @@
-const CACHE = "vintracker-aventura-v2.0.0";
+const CACHE = "vintracker-aventura-v2.0.1";
 const ROOT = new URL("./", self.location.href).pathname;
 const FILES = [
   "",
   "index.html",
-  "styles.css?v=200",
-  "learning.js?v=200",
-  "app.js?v=200",
+  "styles.css?v=201",
+  "learning.js?v=201",
+  "app.js?v=201",
   "manifest.json",
   "favicon-32.png",
   "apple-touch-icon.png",
   "icon-192.png",
   "icon-512.png",
-  "assets/comunidad.webp",
-  "assets/casa-antes.webp",
-  "assets/casa-despues.webp",
-  "assets/ciclo-vinchuca-oficial.jpg",
 ];
 self.addEventListener("install", (e) =>
   e.waitUntil(
