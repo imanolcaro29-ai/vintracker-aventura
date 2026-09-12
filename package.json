@@ -1,0 +1,10 @@
+{
+  "name": "vintracker-aventura-tests",
+  "private": true,
+  "scripts": {
+    "test": "node --test regression.cjs"
+  },
+  "dependencies": {
+    "jsdom": "26.1.0"
+  }
+}

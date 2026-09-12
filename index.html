@@ -1,116 +1,369 @@
 <!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0f5b4f">
-  <meta name="description" content="VinTracker Aventura: juegos interactivos y educación sobre Chagas.">
-  <title>VinTracker Aventura</title>
-  <link rel="icon" type="image/png" href="assets/favicon-32.png">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="app" class="app-shell">
-    <header class="topbar">
-      <button id="homeBtn" class="brand" type="button" aria-label="Ir al inicio">
-        <img src="assets/icon-192.png" alt="Logo VinTracker">
-        <span><strong>VinTracker</strong><small>Aventura</small></span>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#082f32" />
+    <meta
+      name="description"
+      content="Explorá, experimentá y aprendé sobre Chagas con VinTracker Aventura. Cuatro misiones para cuidar en comunidad."
+    />
+    <title>VinTracker Aventura · Expedición Chaco</title>
+    <link rel="icon" href="favicon-32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css?v=200" />
+    <script defer src="learning.js?v=200"></script>
+    <script defer src="app.js?v=200"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar a la aventura</a>
+    <div class="app-shell">
+      <header class="topbar">
+        <button
+          class="brand"
+          data-screen="world"
+          aria-label="VinTracker Aventura, volver al mapa"
+        >
+          <img src="icon-192.png" alt="" width="44" height="44" /><span
+            >VinTracker<small>AVENTURA</small></span
+          >
+        </button>
+        <nav class="main-nav" aria-label="Secciones">
+          <button data-screen="world" class="active">
+            <span data-icon="map"></span>Explorar</button
+          ><button data-screen="notebook">
+            <span data-icon="book"></span>Bitácora
+            <span class="tiny-count" id="navCount">0</span>
+          </button>
+        </nav>
+        <div class="top-actions">
+          <button
+            class="icon-btn"
+            id="soundBtn"
+            aria-label="Activar sonidos"
+            aria-pressed="false"
+          >
+            <span data-icon="volume"></span></button
+          ><button
+            class="icon-btn"
+            id="settingsBtn"
+            aria-label="Ajustes y accesibilidad"
+          >
+            <span data-icon="settings"></span>
+          </button>
+        </div>
+      </header>
+      <main id="main" tabindex="-1">
+        <section
+          id="world"
+          class="screen world-screen"
+          aria-labelledby="worldTitle"
+        >
+          <div class="world-heading">
+            <div>
+              <p class="eyebrow">
+                <span class="sun-dot"></span> EXPEDICIÓN CHACO
+              </p>
+              <h1 id="worldTitle">
+                Un lugar para explorar.<br /><span
+                  >Una comunidad para cuidar.</span
+                >
+              </h1>
+            </div>
+            <button class="passport" data-screen="notebook">
+              <span data-icon="compass"></span
+              ><span
+                >Tu expedición<strong id="worldProgress"
+                  >0 de 4 sellos</strong
+                ></span
+              >
+            </button>
+          </div>
+          <div class="world-layout">
+            <div class="map-frame">
+              <div class="map-art" id="worldScene">
+                <img
+                  src="assets/comunidad.webp"
+                  class="world-image"
+                  alt="Comunidad ilustrada del Chaco con viviendas, escuela y centro de salud"
+                  width="1536"
+                  height="1024"
+                  fetchpriority="high"
+                />
+                <div class="world-glow" aria-hidden="true"></div>
+                <button
+                  class="map-pin pin-house"
+                  data-mission="house"
+                  aria-label="01 · La casa"
+                >
+                  <span class="pin-num">01</span
+                  ><span class="pin-label">La casa</span>
+                </button>
+                <button
+                  class="map-pin pin-night"
+                  data-mission="night"
+                  aria-label="02 · La exploración"
+                >
+                  <span class="pin-num">02</span
+                  ><span class="pin-label">La exploración</span>
+                </button>
+                <button
+                  class="map-pin pin-lab"
+                  data-mission="lab"
+                  aria-label="03 · El laboratorio"
+                >
+                  <span class="pin-num">03</span
+                  ><span class="pin-label">El laboratorio</span>
+                </button>
+                <button
+                  class="map-pin pin-report"
+                  data-mission="report"
+                  aria-label="04 · El puesto de salud"
+                >
+                  <span class="pin-num">04</span
+                  ><span class="pin-label">El puesto de salud</span>
+                </button>
+                <div class="map-coordinate" aria-hidden="true">
+                  NORTE ARGENTINO · ESCENARIO ILUSTRADO
+                </div>
+                <div class="map-hint">
+                  <span data-icon="hand"></span> Tocá un lugar para entrar
+                </div>
+              </div>
+            </div>
+            <aside class="mission-sidebar">
+              <div class="sidebar-head">
+                <span class="eyebrow">TU RECORRIDO</span
+                ><span class="small">A tu ritmo</span>
+              </div>
+              <div id="missionList" class="mission-list"></div>
+              <div class="guide-note">
+                <span data-icon="heart"></span>
+                <div>
+                  <strong>Aprendemos en comunidad</strong>
+                  <p>
+                    Explorá con tu familia o tu escuela. En la vida real, pedí
+                    ayuda a una persona adulta ante un insecto sospechoso.
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="world-footer">
+            <span id="offlineStatus"
+              ><span data-icon="download"></span> Preparando la aventura…</span
+            ><button id="howBtn">
+              ¿Cómo se juega? <span data-icon="arrow"></span></button
+            ><span class="version">AVENTURA 2.0</span>
+          </div>
+          <p id="legacyNote" class="legacy-note" hidden>
+            Tu progreso de la versión anterior sigue guardado. Esta expedición
+            tiene misiones nuevas.
+          </p>
+        </section>
+        <section
+          id="mission"
+          class="screen mission-screen"
+          hidden
+          aria-labelledby="missionTitle"
+        >
+          <div class="mission-topline">
+            <button class="back-btn" data-screen="world">
+              <span data-icon="back"></span>Volver al mapa</button
+            ><span id="missionNumber" class="eyebrow"></span
+            ><button id="readBtn" class="read-btn">
+              <span data-icon="volume"></span>Escuchar
+            </button>
+          </div>
+          <div class="mission-heading">
+            <h1 id="missionTitle"></h1>
+            <p id="missionIntro"></p>
+          </div>
+          <div id="missionBody"></div>
+        </section>
+        <section
+          id="notebook"
+          class="screen notebook-screen"
+          hidden
+          aria-labelledby="notebookTitle"
+        >
+          <div class="section-title">
+            <p class="eyebrow">TU BITÁCORA DE CAMPO</p>
+            <h1 id="notebookTitle">
+              Lo que descubrimos<br /><span>se queda con nosotros.</span>
+            </h1>
+            <p>
+              Consultá los recursos cuando quieras. No hace falta completar las
+              misiones para leerlos.
+            </p>
+          </div>
+          <div id="stamps" class="stamps"></div>
+          <div id="notes" class="notes-grid"></div>
+          <details class="sources">
+            <summary>Fuentes y guía para acompañantes</summary>
+            <p>
+              Propuesta educativa del equipo VinTrackers. Contenido contrastado
+              el 11 de septiembre de 2026. Las ilustraciones de escenarios son
+              recreaciones; no sirven para identificar insectos. No reemplaza la
+              consulta con un equipo de salud.
+            </p>
+            <p>
+              Para acompañar: dejá que cada persona explore, conversen sobre lo
+              que cambió en la escena y relacionen las acciones con su propio
+              entorno, sin culpabilizar a familias ni comunidades.
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.argentina.gob.ar/salud/chagas/chagas-y-la-vinchuca"
+                  target="_blank"
+                  rel="noopener"
+                  >Ministerio de Salud · Chagas y la vinchuca</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.argentina.gob.ar/salud/chagas/el-chagas-se-puede-prevenir"
+                  target="_blank"
+                  rel="noopener"
+                  >Ministerio de Salud · Prevención</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.argentina.gob.ar/salud/chagas/chagas-y-embarazo"
+                  target="_blank"
+                  rel="noopener"
+                  >Ministerio de Salud · Chagas y embarazo</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.argentina.gob.ar/salud/chagas/que-es-el-chagas"
+                  target="_blank"
+                  rel="noopener"
+                  >Ministerio de Salud · Qué es el Chagas</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.who.int/es/news-room/fact-sheets/detail/chagas-disease-(american-trypanosomiasis)"
+                  target="_blank"
+                  rel="noopener"
+                  >OMS · Enfermedad de Chagas</a
+                >
+              </li>
+            </ul>
+            <p>
+              Los enlaces externos necesitan Internet. La bitácora y las
+              misiones quedan disponibles offline después de una carga completa.
+            </p>
+          </details>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <span>VINTRACKERS · APRENDER PARA CUIDAR</span
+        ><span>Educación sobre Chagas · Sin registro ni datos personales</span>
+      </footer>
+    </div>
+    <dialog id="settingsDialog" aria-labelledby="settingsTitle">
+      <button
+        class="dialog-close icon-btn"
+        data-close
+        aria-label="Cerrar ajustes"
+      >
+        ×
       </button>
-      <div class="top-progress" aria-label="Progreso">
-        <span class="pill">⭐ <b id="scoreTop">0</b></span>
-        <span class="pill">🏅 <b id="badgeCount">0</b></span>
+      <p class="eyebrow">A TU MANERA</p>
+      <h2 id="settingsTitle">Ajustá la aventura</h2>
+      <label class="setting-row"
+        ><span
+          ><strong>Reducir movimiento</strong
+          ><small>Detiene los efectos decorativos.</small></span
+        ><input id="motionToggle" type="checkbox" /></label
+      ><label class="setting-row"
+        ><span
+          ><strong>Texto más grande</strong
+          ><small>Amplía letras e instrucciones.</small></span
+        ><input id="textToggle" type="checkbox"
+      /></label>
+      <p class="small">
+        Tu progreso queda en este navegador. Los sonidos y la voz solo se
+        activan cuando los elegís. La lectura en voz alta depende de las voces
+        de tu dispositivo.
+      </p>
+      <button id="resetBtn" class="text-danger">
+        Reiniciar esta expedición
+      </button>
+      <div id="resetConfirm" hidden>
+        <p>
+          Se borrarán los avances de estas cuatro misiones en este navegador.
+        </p>
+        <button id="confirmReset" class="btn">Sí, reiniciar</button
+        ><button id="cancelReset" class="btn secondary">
+          Conservar progreso
+        </button>
       </div>
-    </header>
-
-    <main>
-      <section id="home" class="screen active" aria-labelledby="homeTitle">
-        <div class="hero-card">
-          <div class="hero-copy">
-            <span class="kicker">JUGÁ · APRENDÉ · PREVENÍ</span>
-            <h1 id="homeTitle">Convertite en un <em>VinTracker</em></h1>
-            <p>Superá misiones, descubrí cómo actúa la vinchuca y aprendé a prevenir el Chagas mientras ganás puntos e insignias.</p>
-            <div class="hero-actions">
-              <button id="continueBtn" class="btn primary" type="button">Empezar aventura →</button>
-              <button id="libraryBtn" class="btn secondary" type="button">Abrir biblioteca</button>
-            </div>
-          </div>
-          <div class="guide-card" aria-label="Vinchuca guía">
-            <div class="bug-wrap">
-              <svg class="guide-bug" viewBox="0 0 180 220" role="img" aria-label="Vinchuca ilustrada">
-                <defs>
-                  <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#1b2833"/>
-                    <stop offset="1" stop-color="#090f14"/>
-                  </linearGradient>
-                </defs>
-                <g stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M73 52 50 25M107 52l23-27M68 73 31-44M112 73l-31-44" stroke="#26333c" stroke-width="7"/>
-                  <path d="M62 95 28 75M58 115 22 113M61 137 30 158M118 95l34-20M122 115l36-2M119 137l31 21" stroke="#202b33" stroke-width="9"/>
-                  <ellipse cx="90" cy="62" rx="23" ry="20" fill="#151e25"/>
-                  <path d="M58 87 Q90 65 122 87 L115 163 Q90 205 65 163Z" fill="url(#bodyG)" stroke="#27353e" stroke-width="4"/>
-                  <path d="M65 94 82 104 70 122 84 134 70 150 84 166" fill="none" stroke="#ed6a36" stroke-width="8"/>
-                  <path d="M115 94 98 104 110 122 96 134 110 150 96 166" fill="none" stroke="#ed6a36" stroke-width="8"/>
-                  <path d="M90 89V178" stroke="#87939b" stroke-width="3"/>
-                  <circle cx="81" cy="59" r="4" fill="#eaa23e"/><circle cx="99" cy="59" r="4" fill="#eaa23e"/>
-                </g>
-              </svg>
-            </div>
-            <div class="speech"><strong>¡Hola!</strong><span>Yo te voy a acompañar. Cada misión desbloquea información nueva.</span></div>
-          </div>
-        </div>
-
-        <div class="progress-card">
-          <div class="progress-head"><div><span>Tu progreso</span><strong id="progressText">0 de 8 misiones</strong></div><b id="percentText">0%</b></div>
-          <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
-        </div>
-
-        <div class="section-head"><span class="kicker">MAPA DE MISIONES</span><h2>Elegí tu desafío</h2></div>
-        <div id="missionGrid" class="mission-grid"></div>
-
-        <div class="daily-card">
-          <div><span class="daily-icon">🔥</span><div><strong>Desafío relámpago</strong><small>Una pregunta extra para sumar 50 puntos.</small></div></div>
-          <button id="dailyBtn" class="btn compact" type="button">Jugar</button>
-        </div>
-      </section>
-
-      <section id="game" class="screen" aria-labelledby="gameTitle">
-        <button class="back-btn" data-go="home" type="button">← Volver a misiones</button>
-        <div id="gameContainer"></div>
-      </section>
-
-      <section id="library" class="screen" aria-labelledby="libraryTitle">
-        <button class="back-btn" data-go="home" type="button">← Volver</button>
-        <div class="library-hero">
-          <span class="kicker">BIBLIOTECA VINTRACKER</span>
-          <h2 id="libraryTitle">Todo lo que vas descubriendo</h2>
-          <p>La información se desbloquea al completar misiones. También podés explorarla por tema.</p>
-        </div>
-        <div class="topic-tabs" id="topicTabs"></div>
-        <div id="libraryGrid" class="library-grid"></div>
-      </section>
-
-      <section id="badges" class="screen" aria-labelledby="badgesTitle">
-        <button class="back-btn" data-go="home" type="button">← Volver</button>
-        <div class="library-hero">
-          <span class="kicker">TUS LOGROS</span>
-          <h2 id="badgesTitle">Insignias VinTracker</h2>
-          <p>Completá misiones para desbloquear reconocimientos.</p>
-        </div>
-        <div id="badgeGrid" class="badge-grid"></div>
-      </section>
-    </main>
-
-    <nav class="bottom-nav" aria-label="Navegación principal">
-      <button data-nav="home" class="active" type="button"><span>⌂</span><small>Inicio</small></button>
-      <button data-nav="library" type="button"><span>▤</span><small>Biblioteca</small></button>
-      <button data-nav="badges" type="button"><span>★</span><small>Logros</small></button>
-      <button id="resetBtn" type="button"><span>↻</span><small>Reiniciar</small></button>
-    </nav>
-
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  </div>
-  <script src="app.js"></script>
-</body>
+    </dialog>
+    <dialog id="helpDialog" aria-labelledby="helpTitle">
+      <button
+        class="dialog-close icon-btn"
+        data-close
+        aria-label="Cerrar ayuda"
+      >
+        ×
+      </button>
+      <p class="eyebrow">EXPLORAR · HACER · DESCUBRIR</p>
+      <h2 id="helpTitle">Cada lugar tiene algo para hacer</h2>
+      <ol class="help-steps">
+        <li>
+          <strong>Entrá a una escena.</strong> Podés elegir cualquier lugar del
+          mapa.
+        </li>
+        <li>
+          <strong>Usá las herramientas.</strong> Arrastrá o tocá una herramienta
+          y después su destino. También funciona con teclado.
+        </li>
+        <li>
+          <strong>Mirá qué cambia.</strong> Cada acción explica una idea
+          importante.
+        </li>
+        <li>
+          <strong>Guardá tu sello.</strong> El avance se conserva
+          automáticamente en este dispositivo.
+        </li>
+      </ol>
+      <p>
+        En la misión nocturna, la linterna es virtual. No salgas a buscar ni
+        manipular insectos reales.
+      </p>
+      <button class="btn" data-close>
+        Vamos a explorar <span data-icon="arrow"></span>
+      </button>
+    </dialog>
+    <dialog id="completeDialog" aria-labelledby="completeTitle">
+      <div class="celebration" aria-hidden="true">✦</div>
+      <p class="eyebrow">SELLO DE EXPEDICIÓN</p>
+      <h2 id="completeTitle"></h2>
+      <p id="completeText"></p>
+      <div class="dialog-actions">
+        <button class="btn" id="nextMission">
+          Siguiente lugar <span data-icon="arrow"></span></button
+        ><button class="btn secondary" data-screen="world" data-close>
+          Volver al mapa
+        </button>
+      </div>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite" class="toast"></div>
+    <noscript
+      ><p>
+        Activá JavaScript para explorar las escenas. La información oficial está
+        disponible en argentina.gob.ar/salud/chagas.
+      </p></noscript
+    >
+  </body>
 </html>
